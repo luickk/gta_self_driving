@@ -40,5 +40,5 @@ def grab_frame(size=None):
     win32gui.ReleaseDC(hwin, hwindc)
     win32gui.DeleteObject(bmp.GetHandle())
 
-    #conv_img = cv2.cvtColor(img, cv2.COLOR_BGRA2RGB)
-    return img
+    img_res = cv2.resize(img, (480,270))
+    return img_res
