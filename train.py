@@ -5,9 +5,11 @@ from tensorflow.examples.tutorials.mnist import input_data
 mnist = input_data.read_data_sets("/tmp/data/", one_hot=True)
 import tensorflow as tf
 import numpy as np
+import cv2
 
 from model import cnn_model
 from data import data_prog
+from time import sleep
 
 #training data path
 path = 'D:/data_ai/'
@@ -65,23 +67,17 @@ data = data_prog.get_data(path)
 data_train = data[:-80]
 data_test = data[-20:]
 
-print(data_train.shape)
-
 # Start training
 with tf.Session() as sess:
 
     # Run the initializer
     sess.run(init)
 
+    batch_y = np.array(np.hstack([i[1] for i in data_train]), dtype=np.float32)
+    x = np.array([i[0] for i in data_train], dtype=object)
+    batch_x = data_prog.form_data_x(x)
+
     for step in range(1, num_steps+1):
-        #batch_x, batch_y = mnist.train.next_batch(batch_size)
-        batch_y = np.array(np.hstack([i[1] for i in data_train]), dtype=np.float32)
-        batch_x = np.array([i[0] for i in data_train], dtype=object)
-
-        batch_x = np.stack(batch_x.ravel())
-
-        print(batch_x.shape)
-        print(batch_x)
 
         # Run optimization op (backprop)
         sess.run(train_op, feed_dict={X: batch_x, Y: batch_y})

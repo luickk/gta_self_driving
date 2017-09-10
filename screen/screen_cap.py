@@ -41,4 +41,6 @@ def grab_frame(size=None):
     win32gui.DeleteObject(bmp.GetHandle())
 
     img_res = cv2.resize(img, (480,270))
-    return img_res
+    img_rgb = cv2.cvtColor(img_res, cv2.COLOR_BGRA2RGB)
+    #img_fl = np.array(list(img_rgb), dtype=np.float)
+    return img_rgb
