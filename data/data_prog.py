@@ -46,3 +46,21 @@ def form_data_x(data):
     x_final = np.array(x_batch, dtype=np.float32)
     x_final = x_final[0, :, :, :]
     return x_final
+
+
+def form_data_y(data):
+    index = 0
+    idx = []
+    for c in range(len(data)):
+        img_raw = np.any(data[c])
+        if img_raw == 0.0:
+            idx.append(index)
+        index+=1
+    data = np.delete(data, idx, axis=0)
+
+    y_batch = []
+    for r in range(len(data)):
+        y_batch.append(data[r])
+
+    y_final = np.array(y_batch)
+    return y_final
