@@ -16,7 +16,7 @@ EPOCHS = 1000
 MODEL_NAME = 'Pete'
 
 #training data path
-path = 'D:/data_ai/test/'
+path = 'D:/data_ai/'
 
 def main():
     model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=4, model_name=MODEL_NAME)
