@@ -47,15 +47,20 @@ def main():
             elif pred[p] < 0.4:
                 pred[p]=0
         pred = np.array(pred, int)
-        print(pred)
         if pred[0] == 1 and pred[1] == 0 and pred[2] == 0 and pred[3] == 0:
             agent.steering_acc="forwad"
+            print('forwad')
         if pred[0] == 1 and pred[1] == 1 and pred[2] == 0 and pred[3] == 0:
             agent.steering_acc="forwad_left"
+            print('forwad_left')
         if pred[0] == 1 and pred[1] == 0 and pred[2] == 0 and pred[3] == 1:
             agent.steering_acc="forwad_right"
+            print('forwad_right')
         if pred[0] == 0 and pred[1] == 0 and pred[2] == 1 and pred[3] == 0:
             agent.steering_acc="backwards"
+            print('backwards')
+        if pred[0] == 0 and pred[1] == 0 and pred[2] == 0 and pred[3] == 0:
+            print('stop')
 
 
 if __name__ == "__main__":

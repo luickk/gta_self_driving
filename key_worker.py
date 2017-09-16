@@ -19,11 +19,10 @@ class drive_worker(threading.Thread):
         self.start()
         self.steering_acc="stop"
 
-
     def run(self):
         while True:
-            #if(self.steering_acc=="stop"):
-                #drive_worker.stop()
+            print('loop')
+            sleep(0.5)
             if(self.steering_acc=="forwad"):
                 drive_worker.forwad()
             elif(self.steering_acc=="forwad_right"):
@@ -36,7 +35,6 @@ class drive_worker(threading.Thread):
                 drive_worker.backwards_right()
             elif(self.steering_acc=="backwards_left"):
                 drive_worker.backwards_left()
-            time.sleep(0.5)
 
     def forwad():
         kb.press('w')
