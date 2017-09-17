@@ -19,16 +19,14 @@ MODEL_NAME = 'Pete'
 path = 'D:/data_ai/'
 
 def main():
-    model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=4, model_name=MODEL_NAME)
+    model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8, model_name=MODEL_NAME)
 
     data_train = data_prog.get_data(path)
 
     #Y
     batch_y = data_prog.form_data_y(np.array([i[1] for i in data_train], dtype=object))
-    #test_y = data_prog.form_data_y(np.array([i[1] for i in data_test], dtype=object))
 
     #X
-    #test_x = data_prog.form_data_x(np.array([i[0] for i in data_test], dtype=object)).reshape(-1,WIDTH,HEIGHT,3)
     batch_x = data_prog.form_data_x(np.array([i[0] for i in data_train], dtype=object)).reshape(-1,WIDTH,HEIGHT,3)
 
     for e in tqdm(range(EPOCHS)):

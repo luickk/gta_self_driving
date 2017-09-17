@@ -13,22 +13,36 @@ for char in "WASD":
 
 
 def get_pressed_keys():
-    pressed_keys = np.array([0, 0, 0, 0])
-    #1: W
-    #2: A
+    pressed_keys = np.array([0, 0, 0, 0, 0, 0, 0, 0])
+    #0: W
+    #1: WA
+    #2: WD
     #3: S
-    #4: D
-
+    #4: SA
+    #5: SD
+    #6: A
+    #7: D
+    temp_keys = []
     for key in keys:
         if win32api.GetAsyncKeyState(ord(key)):
-            if(key=='W'):
-                pressed_keys[0]=1
-            elif(key=='A'):
-                pressed_keys[1]=1
-            elif(key=='S'):
-                pressed_keys[2]=1
-            elif(key=='D'):
-                pressed_keys[3]=1
+            temp_keys.append(key)
+
+    if 'W' in temp_keys and 'A' in temp_keys:
+        pressed_keys[1] = 1
+    elif 'W' in temp_keys and 'D' in temp_keys:
+        pressed_keys[2] = 1
+    elif 'S' in temp_keys and 'A' in temp_keys:
+        pressed_keys[4] = 1
+    elif 'S' in temp_keys and 'D' in temp_keys:
+        pressed_keys[5] = 1
+    elif 'W' in temp_keys:
+        pressed_keys[0] = 1
+    elif 'S' in temp_keys:
+        pressed_keys[3] = 1
+    elif 'A' in temp_keys:
+        pressed_keys[6] = 1
+    elif 'D' in temp_keys:
+        pressed_keys[7] = 1
 
     return pressed_keys
 

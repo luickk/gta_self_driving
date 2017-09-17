@@ -21,7 +21,7 @@ from tflearn.layers.estimator import regression
 from tflearn.layers.normalization import local_response_normalization
 from tflearn.layers.merge_ops import merge
 
-def googlenet(width, height, frame_count, lr, output=9, model_name = 'sentnet_color.model'):
+def googlenet(width, height, frame_count, lr, output=6, model_name = 'sentnet_color.model'):
     network = input_data(shape=[None, width, height,3], name='input')
     conv1_7_7 = conv_2d(network, 64, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
     pool1_3_3 = max_pool_2d(conv1_7_7, 3,strides=2)

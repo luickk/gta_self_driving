@@ -28,7 +28,7 @@ MODEL_NAME = 'Pete'
 #training data path
 path = 'D:/data_ai/'
 
-model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=4)
+model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8)
 model.load('model_data/'+MODEL_NAME)
 
 
@@ -41,27 +41,32 @@ def main():
         img = cv2.resize(screen_cap.grab_frame(size), (WIDTH,HEIGHT))
         model_prediction = model.predict([img.reshape(WIDTH, HEIGHT, 3)])[0]
         pred = np.array(np.around(model_prediction, decimals=1))
-        for p in range(len(pred)):
-            if pred[p] > 0.4:
-                pred[p]=1
-            elif pred[p] < 0.4:
-                pred[p]=0
-        pred = np.array(pred, int)
-        if pred[0] == 1 and pred[1] == 0 and pred[2] == 0 and pred[3] == 0:
-            agent.steering_acc="forwad"
-            print('forwad')
-        if pred[0] == 1 and pred[1] == 1 and pred[2] == 0 and pred[3] == 0:
-            agent.steering_acc="forwad_left"
-            print('forwad_left')
-        if pred[0] == 1 and pred[1] == 0 and pred[2] == 0 and pred[3] == 1:
-            agent.steering_acc="forwad_right"
-            print('forwad_right')
-        if pred[0] == 0 and pred[1] == 0 and pred[2] == 1 and pred[3] == 0:
-            agent.steering_acc="backwards"
-            print('backwards')
-        if pred[0] == 0 and pred[1] == 0 and pred[2] == 0 and pred[3] == 0:
-            print('stop')
+        #0: W
+        #1: WA
+        #2: WD
+        #3: S
+        #4: SA
+        #5: SD
+        #6: A
+        #7: D
+        choice = np.argmax(pred)
 
+        if choice == 0:
+            agent.steering_acc="forwad"
+        if choice == 1:
+            agent.steering_acc="forwad_left"
+        if choice == 2:
+            agent.steering_acc="forwad_right"
+        if choice == 3:
+            agent.steering_acc="backwards"
+        if choice == 4:
+            agent.steering_acc="backwards_left"
+        if choice == 5:
+            agent.steering_acc="backwards_right"
+        if choice == 6:
+            agent.steering_acc="forwad_left"
+        if choice == 7:
+            agent.steering_acc="forwad_right"
 
 if __name__ == "__main__":
     main()
