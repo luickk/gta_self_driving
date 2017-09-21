@@ -13,7 +13,7 @@ from tqdm import tqdm
 WIDTH = 480
 HEIGHT = 270
 LR = 0.0000001
-EPOCHS = 30000
+EPOCHS = 20000
 
 MODEL_NAME = 'Pete'
 
@@ -26,13 +26,12 @@ def main():
 
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=data_prog.numericalSort)
     for e in tqdm(range(EPOCHS)):
-
-
         for f in files:
             data = np.load(f)
             data_train = data
 
-            print('File size: ',len(data_train))
+            print('File: ',f)
+
             #Y
             batch_y = data_prog.form_data_y(np.array([i[1] for i in data_train], dtype=object))
 
@@ -41,9 +40,9 @@ def main():
 
             model.fit({'input': batch_x}, {'targets': batch_y}, n_epoch=1, snapshot_step=2500, show_metric=True, run_id=MODEL_NAME)
 
-        if e%100==0:
-            print('###################-Model-Saved-###################')
-            model.save('model_data/'+MODEL_NAME)
+        print('###################-Model-Saved-###################')
+        print('Abs. ep: ', e)
+        model.save('model_data/'+MODEL_NAME)
 
     print('###################-Finished-Learning-###################')
     model.save('model_data/'+MODEL_NAME)

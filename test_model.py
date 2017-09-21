@@ -35,12 +35,12 @@ model.load('model_data/'+MODEL_NAME)
 
 def main():
     agent = drive_worker()
-    #agent.steering_acc="forwad"
+    #agent.steering_acc="forward"
 
     while True:
         img = cv2.resize(screen_cap.grab_frame(size), (WIDTH,HEIGHT))
         model_prediction = model.predict([img.reshape(WIDTH, HEIGHT, 3)])[0]
-        pred = np.array(np.around(model_prediction, decimals=1))
+        pred = np.array(model_prediction) * np.array([4.5, 1.8, 1.8, 0.1, 0.1, 0.1, 0.5, 0.5])
         #0: W
         #1: WA
         #2: WD
@@ -49,24 +49,33 @@ def main():
         #5: SD
         #6: A
         #7: D
+        print(pred)
         choice = np.argmax(pred)
-
+        print(choice)
         if choice == 0:
-            agent.steering_acc="forwad"
+            agent.steering_acc="forward"
+            print('forward')
         if choice == 1:
-            agent.steering_acc="forwad_left"
+            agent.steering_acc="forward_left"
+            print('forward_left')
         if choice == 2:
-            agent.steering_acc="forwad_right"
+            agent.steering_acc="forward_right"
+            print('forward_right')
         if choice == 3:
             agent.steering_acc="backwards"
+            print('backwards')
         if choice == 4:
             agent.steering_acc="backwards_left"
+            print('backwards_left')
         if choice == 5:
             agent.steering_acc="backwards_right"
+            print('backwards_right')
         if choice == 6:
-            agent.steering_acc="forwad_left"
+            agent.steering_acc="forward_left"
+            print('forward_left')
         if choice == 7:
-            agent.steering_acc="forwad_right"
+            agent.steering_acc="forward_right"
+            print('forward_right')
 
 if __name__ == "__main__":
     main()

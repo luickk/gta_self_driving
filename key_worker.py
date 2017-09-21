@@ -4,9 +4,9 @@ import keyboard as kb
 
 class drive_worker(threading.Thread):
 
-    #f: forwad
-    #fr: forwad_right
-    #fl: forwad_left
+    #f: forward
+    #fr: forward_right
+    #fl: forward_left
     #
     #b: backwards
     #br: backwards_right
@@ -23,12 +23,12 @@ class drive_worker(threading.Thread):
         while True:
             print('loop')
             sleep(0.5)
-            if(self.steering_acc=="forwad"):
-                drive_worker.forwad()
-            elif(self.steering_acc=="forwad_right"):
-                drive_worker.forwad_right()
-            elif(self.steering_acc=="forwad_left"):
-                drive_worker.forwad_left()
+            if(self.steering_acc=="forward"):
+                drive_worker.forward()
+            elif(self.steering_acc=="forward_right"):
+                drive_worker.forward_right()
+            elif(self.steering_acc=="forward_left"):
+                drive_worker.forward_left()
             elif(self.steering_acc=="backwards"):
                 drive_worker.backwards()
             elif(self.steering_acc=="backwards_right"):
@@ -36,16 +36,16 @@ class drive_worker(threading.Thread):
             elif(self.steering_acc=="backwards_left"):
                 drive_worker.backwards_left()
 
-    def forwad():
+    def forward():
         kb.press('w')
 
 
-    def forwad_right():
+    def forward_right():
         kb.press('w')
         kb.press('d')
 
 
-    def forwad_left():
+    def forward_left():
         kb.press('w')
         kb.press('a')
 
