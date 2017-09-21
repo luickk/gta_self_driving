@@ -16,6 +16,7 @@ LR = 0.0000001
 EPOCHS = 20000
 
 MODEL_NAME = 'Pete'
+MODEL_TRAIN = 'model_data/Pete'
 
 #training data path
 path = 'D:/data_ai/'
@@ -23,6 +24,9 @@ path = 'D:/data_ai/'
 def main():
     model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8, model_name=MODEL_NAME)
 
+
+    if MODEL_TRAIN:
+        model.load(MODEL_TRAIN)
 
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=data_prog.numericalSort)
     for e in tqdm(range(EPOCHS)):
