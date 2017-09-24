@@ -1,10 +1,6 @@
 import numpy as np
-import tensorflow as ts
-from screen import screen_cap
-import win32gui, win32ui, win32con, win32api
-import cv2
 import glob
-import re
+import time
 
 from model import cnn_model
 from data import data_prog
@@ -12,7 +8,7 @@ from tqdm import tqdm
 
 WIDTH = 480
 HEIGHT = 270
-LR = 0.0000001
+LR = 0.00001
 EPOCHS = 20000
 
 MODEL_NAME = 'Pete'
@@ -31,8 +27,8 @@ def main():
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=data_prog.numericalSort)
     for e in tqdm(range(EPOCHS)):
         for f in files:
-            data = np.load(f)
-            data_train = data
+            time_start = time.time()
+            data_train = np.load(f)
 
             print('File: ',f)
 
@@ -43,6 +39,14 @@ def main():
             batch_x = data_prog.form_data_x(np.array([i[0] for i in data_train], dtype=object)).reshape(-1,WIDTH,HEIGHT,3)
 
             model.fit({'input': batch_x}, {'targets': batch_y}, n_epoch=1, snapshot_step=2500, show_metric=True, run_id=MODEL_NAME)
+
+            #releasing data from memory
+            data = None
+            batch_x = None
+            batch_y = None
+            time_end = time.time()
+            print('Loop took: ', time_end - time_start)
+
 
         print('###################-Model-Saved-###################')
         print('Abs. ep: ', e)

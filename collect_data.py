@@ -1,12 +1,6 @@
 import numpy as np
-import tensorflow as ts
-from screen import screen_cap
 from hardw import get_keys
-import win32gui, win32ui, win32con, win32api
 import cv2
-import datetime
-import pandas
-import tables
 
 def main():
 
@@ -57,7 +51,6 @@ def main():
 
         elif paused:
             print('paused')
-        #cv2.imshow('frame',img)
 
         if cv2.waitKey(1) & 0xFF == ord('q') or get_keys.get_stop_key('P'):
             break

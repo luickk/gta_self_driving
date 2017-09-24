@@ -1,7 +1,4 @@
 import numpy as np
-import tensorflow as ts
-import win32gui, win32ui, win32con, win32api
-import cv2
 from tqdm import tqdm
 import glob
 import re
@@ -18,6 +15,7 @@ def get_data(path):
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=numericalSort)
 
     merged_data = np.zeros((501, 2), dtype=np.float)
+
     for f in tqdm(files):
         try:
             data = np.load(f)
@@ -30,37 +28,25 @@ def get_data(path):
     return merged_data
 
 def form_data_x(data):
-    index = 0
-    idx = []
-    for img in range(len(data)):
-        img_raw = np.any(data[img])
-        if img_raw == 0.0:
-            idx.append(index)
-        index+=1
-    data = np.delete(data, idx, axis=0)
 
+    data = np.ma.masked_equal(data, 0)
     x_batch = []
     for img in range(len(data)):
         x_batch.append(data[img])
 
+    data = None
     x_final = np.array(x_batch, dtype=np.float32)
     x_final = x_final[0, :, :, :]
     return x_final
 
 
 def form_data_y(data):
-    index = 0
-    idx = []
-    for c in range(len(data)):
-        img_raw = np.any(data[c])
-        if img_raw == 0.0:
-            idx.append(index)
-        index+=1
-    data = np.delete(data, idx, axis=0)
 
+    data = np.ma.masked_equal(data, 0)
     y_batch = []
     for r in range(len(data)):
         y_batch.append(data[r])
 
+    data = None
     y_final = np.array(y_batch)
     return y_final
