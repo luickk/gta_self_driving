@@ -1,6 +1,11 @@
 import numpy as np
-from hardw import get_keys
 import cv2
+import sys
+import glob
+
+from optparse import OptionParser
+from hardw import get_keys
+from screen import screen_cap
 
 def main():
 
@@ -20,7 +25,22 @@ def main():
     save_steps = 500
 
     #done steps
-    steps = 0
+    parser = OptionParser()
+    parser.add_option("-s", "--steps", dest="steps",
+                      help="use forward to use existing files as step indicator", metavar="int")
+
+    (options, args) = parser.parse_args()
+
+    if options.steps:
+        if options.steps == "forward":
+            steps = len((glob.glob('{}/*.npy*'.format(path))))
+        elif not options.steps == "forward":
+            steps = int(options.steps)
+    elif not options.steps:
+        steps = 0
+
+    print(steps)
+
 
     paused = False
 
