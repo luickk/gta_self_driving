@@ -37,7 +37,7 @@ def main():
         elif not options.steps == "forward":
             steps = int(options.steps)
     elif not options.steps:
-        steps = 0
+        steps = len((glob.glob('{}/*.npy*'.format(path))))
 
     print(steps)
 
@@ -58,17 +58,13 @@ def main():
             pressed_k = get_keys.get_pressed_keys()
             img = screen_cap.grab_frame(size)
             tr_data.append([img, pressed_k])
-            print('Writing.. | Size: ', len(tr_data))
+            img = None
 
             if save_steps < len(tr_data):
-                print('start saving')
                 steps += 1
+                print('Writing.. | Step: ', steps)
                 np.save(path+'data'+str(steps)+'.npy', tr_data)
-                print('----------------')
-                print('Saved | Step: ', steps)
-                print('----------------')
                 tr_data = []
-
         elif paused:
             print('paused')
 
@@ -78,8 +74,6 @@ def main():
     print('Saving data')
     print('Path:', path)
 
-    #Saving
-    np.save(path+'data'+str(steps)+'.npy', tr_data)
     print('----------------')
     print('Finally Saved | Step: ', steps)
     print('----------------')

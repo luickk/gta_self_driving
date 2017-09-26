@@ -12,7 +12,7 @@ LR = 0.00001
 EPOCHS = 20000
 
 MODEL_NAME = 'Pete'
-MODEL_TRAIN = 'model_data/Pete'
+MODEL_TRAIN = ''
 
 #training data path
 path = 'D:/data_ai/'
