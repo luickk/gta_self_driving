@@ -1,6 +1,7 @@
 import numpy as np
 import glob
 import time
+import os
 
 from model import cnn_model
 from data import data_prog
@@ -8,11 +9,11 @@ from tqdm import tqdm
 
 WIDTH = 480
 HEIGHT = 270
-LR = 0.00001
+LR = 0.000000001
 EPOCHS = 20000
 
 MODEL_NAME = 'Pete'
-MODEL_TRAIN = ''
+MODEL_TRAIN = 'model_data/Pete'
 
 #training data path
 path = 'D:/data_ai/'
@@ -21,16 +22,18 @@ def main():
     model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8, model_name=MODEL_NAME)
 
 
-    if MODEL_TRAIN:
+    if MODEL_TRAIN and os.path.exists(MODEL_TRAIN):
         model.load(MODEL_TRAIN)
 
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=data_prog.numericalSort)
     for e in tqdm(range(EPOCHS)):
+        file_step = 0
         for f in files:
             time_start = time.time()
             data_train = np.load(f)
-
+            file_step += 1
             print('File: ',f)
+            print('File step: ', file_step)
 
             #Y
             batch_y = data_prog.form_data_y(np.array([i[1] for i in data_train], dtype=object))
@@ -47,10 +50,10 @@ def main():
             time_end = time.time()
             print('Loop took: ', time_end - time_start)
 
-
-        print('###################-Model-Saved-###################')
-        print('Abs. ep: ', e)
-        model.save('model_data/'+MODEL_NAME)
+            if(file_step%10 == 0):
+                print('###################-Model-Saved-###################')
+                print('Abs. ep: ', e)
+                model.save('model_data/'+MODEL_NAME)
 
     print('###################-Finished-Learning-###################')
     model.save('model_data/'+MODEL_NAME)
