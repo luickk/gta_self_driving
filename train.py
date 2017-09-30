@@ -22,7 +22,7 @@ def main():
     model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8, model_name=MODEL_NAME)
 
 
-    if MODEL_TRAIN and os.path.exists(MODEL_TRAIN):
+    if MODEL_TRAIN:
         model.load(MODEL_TRAIN)
 
     files = sorted(glob.glob('{}/*.npy*'.format(path)), key=data_prog.numericalSort)
@@ -32,9 +32,6 @@ def main():
             time_start = time.time()
             data_train = np.load(f)
             file_step += 1
-            print('File: ',f)
-            print('File step: ', file_step)
-
             #Y
             batch_y = data_prog.form_data_y(np.array([i[1] for i in data_train], dtype=object))
 
