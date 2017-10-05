@@ -29,7 +29,7 @@ def get_data(path):
 
 def form_data_x(data):
 
-    data = np.ma.masked_equal(data, 0)
+    #data = np.ma.masked_equal(data, 0)
     x_batch = []
     for img in range(len(data)):
         x_batch.append(data[img])
@@ -42,7 +42,7 @@ def form_data_x(data):
 
 def form_data_y(data):
 
-    data = np.ma.masked_equal(data, 0)
+    #data = np.ma.masked_equal(data, 0)
     y_batch = []
     for r in range(len(data)):
         y_batch.append(data[r])

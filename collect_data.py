@@ -10,7 +10,7 @@ from screen import screen_cap
 def main():
 
     #where file is stored
-    path = 'D:/data_ai/'
+    path = 'D:/data_ai_ll/'
 
     #(left, top, res, res)
     size=(0,40,800,600)
@@ -45,28 +45,17 @@ def main():
     paused = False
 
     while True:
+        itr += 1
+        pressed_k = get_keys.get_pressed_keys()
+        img = screen_cap.grab_frame(size)
+        tr_data.append([img, pressed_k])
+        img = None
 
-        if get_keys.get_pause_key('T'):
-            if paused:
-                paused = False
-            elif not paused:
-                paused = True
-
-        if not paused:
-
-            itr += 1
-            pressed_k = get_keys.get_pressed_keys()
-            img = screen_cap.grab_frame(size)
-            tr_data.append([img, pressed_k])
-            img = None
-
-            if save_steps < len(tr_data):
-                steps += 1
-                print('Writing.. | Step: ', steps)
-                np.save(path+'data'+str(steps)+'.npy', tr_data)
-                tr_data = []
-        elif paused:
-            print('paused')
+        if save_steps < len(tr_data):
+            steps += 1
+            print('Writing.. | Step: ', steps)
+            np.save(path+'data'+str(steps)+'.npy', tr_data)
+            tr_data = []
 
         if cv2.waitKey(1) & 0xFF == ord('q') or get_keys.get_stop_key('P'):
             break

@@ -23,19 +23,19 @@ from tflearn.layers.merge_ops import merge
 
 def googlenet(width, height, frame_count, lr, output=6, model_name = 'sentnet_color.model'):
     network = input_data(shape=[None, width, height,3], name='input')
-    conv1_7_7 = conv_2d(network, 64, 7, strides=2, activation='relu', name = 'conv1_7_7_s2')
-    pool1_3_3 = max_pool_2d(conv1_7_7, 3,strides=2)
+    conv1_7_7 = conv_2d(network, 64, 28, strides=4, activation='relu', name = 'conv1_7_7_s2')
+    pool1_3_3 = max_pool_2d(conv1_7_7, 9,strides=4)
     pool1_3_3 = local_response_normalization(pool1_3_3)
     conv2_3_3_reduce = conv_2d(pool1_3_3, 64,1, activation='relu',name = 'conv2_3_3_reduce')
-    conv2_3_3 = conv_2d(conv2_3_3_reduce, 192,3, activation='relu', name='conv2_3_3')
+    conv2_3_3 = conv_2d(conv2_3_3_reduce, 192,12, activation='relu', name='conv2_3_3')
     conv2_3_3 = local_response_normalization(conv2_3_3)
-    pool2_3_3 = max_pool_2d(conv2_3_3, kernel_size=3, strides=2, name='pool2_3_3_s2')
+    pool2_3_3 = max_pool_2d(conv2_3_3, kernel_size=12, strides=2, name='pool2_3_3_s2')
     inception_3a_1_1 = conv_2d(pool2_3_3, 64, 1, activation='relu', name='inception_3a_1_1')
     inception_3a_3_3_reduce = conv_2d(pool2_3_3, 96,1, activation='relu', name='inception_3a_3_3_reduce')
-    inception_3a_3_3 = conv_2d(inception_3a_3_3_reduce, 128,filter_size=3,  activation='relu', name = 'inception_3a_3_3')
+    inception_3a_3_3 = conv_2d(inception_3a_3_3_reduce, 128,filter_size=12,  activation='relu', name = 'inception_3a_3_3')
     inception_3a_5_5_reduce = conv_2d(pool2_3_3,16, filter_size=1,activation='relu', name ='inception_3a_5_5_reduce' )
-    inception_3a_5_5 = conv_2d(inception_3a_5_5_reduce, 32, filter_size=5, activation='relu', name= 'inception_3a_5_5')
-    inception_3a_pool = max_pool_2d(pool2_3_3, kernel_size=3, strides=1, )
+    inception_3a_5_5 = conv_2d(inception_3a_5_5_reduce, 32, filter_size=15, activation='relu', name= 'inception_3a_5_5')
+    inception_3a_pool = max_pool_2d(pool2_3_3, kernel_size=12, strides=1, )
     inception_3a_pool_1_1 = conv_2d(inception_3a_pool, 32, filter_size=1, activation='relu', name='inception_3a_pool_1_1')
 
     # merge the inception_3a__
@@ -43,10 +43,10 @@ def googlenet(width, height, frame_count, lr, output=6, model_name = 'sentnet_co
 
     inception_3b_1_1 = conv_2d(inception_3a_output, 128,filter_size=1,activation='relu', name= 'inception_3b_1_1' )
     inception_3b_3_3_reduce = conv_2d(inception_3a_output, 128, filter_size=1, activation='relu', name='inception_3b_3_3_reduce')
-    inception_3b_3_3 = conv_2d(inception_3b_3_3_reduce, 192, filter_size=3,  activation='relu',name='inception_3b_3_3')
+    inception_3b_3_3 = conv_2d(inception_3b_3_3_reduce, 192, filter_size=9,  activation='relu',name='inception_3b_3_3')
     inception_3b_5_5_reduce = conv_2d(inception_3a_output, 32, filter_size=1, activation='relu', name = 'inception_3b_5_5_reduce')
-    inception_3b_5_5 = conv_2d(inception_3b_5_5_reduce, 96, filter_size=5,  name = 'inception_3b_5_5')
-    inception_3b_pool = max_pool_2d(inception_3a_output, kernel_size=3, strides=1,  name='inception_3b_pool')
+    inception_3b_5_5 = conv_2d(inception_3b_5_5_reduce, 96, filter_size=15,  name = 'inception_3b_5_5')
+    inception_3b_pool = max_pool_2d(inception_3a_output, kernel_size=12, strides=1,  name='inception_3b_pool')
     inception_3b_pool_1_1 = conv_2d(inception_3b_pool, 64, filter_size=1,activation='relu', name='inception_3b_pool_1_1')
 
     #merge the inception_3b_*
@@ -145,6 +145,5 @@ def googlenet(width, height, frame_count, lr, output=6, model_name = 'sentnet_co
 
     model = tflearn.DNN(network,
                         max_checkpoints=0, tensorboard_verbose=0,tensorboard_dir='log')
-
 
     return model

@@ -9,11 +9,12 @@ from tqdm import tqdm
 
 WIDTH = 480
 HEIGHT = 270
-LR = 0.000000001
+LR = 0.00025
 EPOCHS = 20000
 
-MODEL_NAME = 'Pete'
-MODEL_TRAIN = 'model_data/Pete'
+MODEL_NAME = 'Pete_mtr'
+#model_data/Pete_mtr/
+MODEL_TRAIN = 'model_data/Pete_mtr/'
 
 #training data path
 path = 'D:/data_ai/'
@@ -32,11 +33,11 @@ def main():
             time_start = time.time()
             data_train = np.load(f)
             file_step += 1
-            #Y
-            batch_y = data_prog.form_data_y(np.array([i[1] for i in data_train], dtype=object))
+            
+            batch_x = np.array([i[0] for i in data_train]).reshape(-1,WIDTH,HEIGHT,3)
 
-            #X
-            batch_x = data_prog.form_data_x(np.array([i[0] for i in data_train], dtype=object)).reshape(-1,WIDTH,HEIGHT,3)
+            batch_y = [i[1] for i in data_train]
+
 
             model.fit({'input': batch_x}, {'targets': batch_y}, n_epoch=1, snapshot_step=2500, show_metric=True, run_id=MODEL_NAME)
 
