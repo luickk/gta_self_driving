@@ -66,6 +66,11 @@ Dependencies
 > - threading
 > - keyboard
 > - win32gui, win32ui, win32con, win32api
+>  If you get this error: `ImportError: DLL load failed: The specified module could not be found.`,
+>  move *pythoncom36.dll* and *pywintypes36.dll* from 
+>  `Python36\Lib\site-packages\pywin32_system32` to 
+>  `Python36\Lib\site-packages\win32` 
+>  If you get this error: `ImportError: No module named win32gui`, after installing win32 and you are using 64 bit python install 64 bit win32 wheel from http://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32 by using `pip install <name>.whl`
 > - re
 
 Contributing
