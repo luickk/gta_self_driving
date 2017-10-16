@@ -65,7 +65,7 @@ Dependencies
 > - optparse
 > - threading
 > - keyboard
-> - win32gui, win32ui, win32con, win32api
+> - win32gui, win32ui, win32con, win32api <br>
 >  If you get this error: `ImportError: DLL load failed: The specified module could not be found.`,
 >  move *pythoncom36.dll* and *pywintypes36.dll* from 
 >  `Python36\Lib\site-packages\pywin32_system32` to 
