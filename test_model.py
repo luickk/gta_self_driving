@@ -20,14 +20,10 @@ GAME_HEIGHT = 600
 #(left, top, res, res)
 size=(0,40,GAME_WIDTH, GAME_HEIGHT)
 
-LR = 0.00001
-EPOCHS = 1000
 
-MODEL_NAME = 'Pete'
+LR = 0.01
 
-#training data path
-path = 'D:/data_ai/'
-
+MODEL_NAME = 'Pete_vmtr'
 model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8)
 model.load('model_data/'+MODEL_NAME)
 
@@ -52,7 +48,7 @@ def main():
         #7: D
         print(pred)
         choice = np.argmax(pred)
-        print(pred[choice])
+        #print(pred[choice])
         if choice == 0:
             agent.steering_acc="forward"
             print('forward')

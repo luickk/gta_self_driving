@@ -10,7 +10,7 @@ from screen import screen_cap
 def main():
 
     #where file is stored
-    path = 'D:/data_ai_ll/'
+    path = 'D:/data_ai/'
 
     #(left, top, res, res)
     size=(0,40,800,600)
