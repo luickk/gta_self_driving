@@ -22,14 +22,28 @@ def main():
     for e in range(EPOCHS):
         file_step = 0
         cv2.namedWindow('image', cv2.WINDOW_NORMAL)
+        cv2.resizeWindow('image', 900, 400)
         for f in files:
             data_train = np.load(f)
             images = np.array([i[0] for i in data_train], dtype=np.uint8)
+            keys = [i[1] for i in data_train]
             for g in range((len(images))):
                 image = images[g]
-                cv2.imshow('image', image)
+                key = keys[g]
+                image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB);
+                cv2.circle(image_rgb, (250,50), 20, (0,0,255), -1)
+                cv2.circle(image_rgb, (200,50), 20, (0,0,255), -1)
+                cv2.circle(image_rgb, (300,50), 20, (0,0,255), -1)
+
+                if key[0] == 1:
+                    cv2.circle(image_rgb, (250,50), 20, (0,255,0), -1)
+                if key[1] == 1:
+                    cv2.circle(image_rgb, (200,50), 20, (0,255,0), -1)
+                if key[2] == 1:
+                    cv2.circle(image_rgb, (300,50), 20, (0,255,0), -1)
+
+                cv2.imshow('image', image_rgb)
                 cv2.waitKey(1)
-                #time.sleep(0.3)
 
 numbers = re.compile(r'(\d+)')
 def numericalSort(value):
