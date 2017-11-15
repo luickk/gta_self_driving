@@ -23,7 +23,7 @@ size=(0,40,GAME_WIDTH, GAME_HEIGHT)
 
 LR = 0.01
 
-MODEL_NAME = 'Pete_vmtr'
+MODEL_NAME = 'Pete_600gb_0_001'
 model = cnn_model.googlenet(WIDTH, HEIGHT, 3, LR, output=8)
 model.load('model_data/'+MODEL_NAME)
 

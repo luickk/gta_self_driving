@@ -15,9 +15,9 @@ LR = 0.001
 #1best 0.001 <200gb
 EPOCHS = 20000
 
-MODEL_NAME = 'Pete_vmtr'
-#model_data/Pete_vmtr/
-MODEL_TRAIN = 'model_data/Pete_vmtr/'
+MODEL_NAME = 'Pete_600gb_0_001'
+#model_data/Pete_600gb_0_001/
+MODEL_TRAIN = 'model_data/Pete_600gb_0_001/'
 
 #training data path
 path = 'D:/data_ai/'
@@ -48,7 +48,7 @@ def main():
             data = None
             batch_x = None
             batch_y = None
-            
+
             if(file_step%10 == 0):
                 print('###################-Model-Saved-###################')
                 print('Abs. ep: ', e)

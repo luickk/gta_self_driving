@@ -1,6 +1,8 @@
 import threading
 from time import sleep
+from hardw import get_keys
 import keyboard as kb
+
 
 class drive_worker(threading.Thread):
 
@@ -20,21 +22,35 @@ class drive_worker(threading.Thread):
         self.steering_acc="stop"
 
     def run(self):
+        paused = False
         while True:
-            print('loop')
+            print('loop_kw')
             sleep(0.5)
-            if(self.steering_acc=="forward"):
-                drive_worker.forward()
-            elif(self.steering_acc=="forward_right"):
-                drive_worker.forward_right()
-            elif(self.steering_acc=="forward_left"):
-                drive_worker.forward_left()
-            elif(self.steering_acc=="backwards"):
-                drive_worker.backwards()
-            elif(self.steering_acc=="backwards_right"):
-                drive_worker.backwards_right()
-            elif(self.steering_acc=="backwards_left"):
-                drive_worker.backwards_left()
+            if get_keys.get_pause_key():
+                paused = True
+            elif not get_keys.get_pause_key():
+                paused = False
+            if paused:
+                if(self.steering_acc=="forward"):
+                    drive_worker.release_all()
+                    drive_worker.forward()
+                elif(self.steering_acc=="forward_right"):
+                    drive_worker.release_all()
+                    drive_worker.forward_right()
+                elif(self.steering_acc=="forward_left"):
+                    drive_worker.release_all()
+                    drive_worker.forward_left()
+                elif(self.steering_acc=="backwards"):
+                    drive_worker.release_all()
+                    drive_worker.backwards()
+                elif(self.steering_acc=="backwards_right"):
+                    drive_worker.release_all()
+                    drive_worker.backwards_right()
+                elif(self.steering_acc=="backwards_left"):
+                    drive_worker.release_all()
+                    drive_worker.backwards_left()
+            elif not paused:
+                drive_worker.release_all()
 
     def forward():
         kb.press('w')
@@ -62,3 +78,9 @@ class drive_worker(threading.Thread):
     def backwards_left():
         kb.press('s')
         kb.press('a')
+
+    def release_all():
+        kb.release('w')
+        kb.release('a')
+        kb.release('s')
+        kb.release('d')
