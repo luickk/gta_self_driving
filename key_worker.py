@@ -49,8 +49,6 @@ class drive_worker(threading.Thread):
                 elif(self.steering_acc=="backwards_left"):
                     drive_worker.release_all()
                     drive_worker.backwards_left()
-            elif not paused:
-                drive_worker.release_all()
 
     def forward():
         kb.press('w')
