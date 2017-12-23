@@ -9,6 +9,9 @@ The agent's driving skills are concentrated on motorways and long straight stree
 
 ----------
 
+Demo
+-------------
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PacK5zFUrpc?rel=0" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
 
 Realization
 -------------
@@ -74,12 +77,3 @@ Dependencies
 >  `Python36\Lib\site-packages\win32` <br>
 >  If you get this error: `ImportError: No module named win32gui`, after installing win32 and you are using 64 bit python install 64 bit win32 wheel from http://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32 by using `pip install <name>.whl`
 > - re
-
-Contributing
--------------------
-1: Fork it! <br>
-2: Create your feature branch: `git checkout -b my-new-feature` <br>
-3: Commit your changes: `git commit -am 'Add some feature'` <br>
-4: Push to the branch: `git push origin my-new-feature` <br>
-5: [Submit](https://help.github.com/articles/about-pull-requests/) a pull request <br>
-
