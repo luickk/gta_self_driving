@@ -1,9 +1,6 @@
 GTA self driving Agent
 ===================
 
-
-![alt text](http://mrgrimod.de/images/gta.jpg)
-
 The goal is to program a self-propelled agent, that is capable of driving a car in gtaIV.
 The agent's driving skills are concentrated on motorways and long straight streets.
 
