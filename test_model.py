@@ -36,8 +36,7 @@ def main():
     while True:
         img = cv2.resize(screen_cap.grab_frame(size), (WIDTH,HEIGHT))
         model_prediction = model.predict([img.reshape(WIDTH, HEIGHT, 3)])[0]
-        pred = np.array(model_prediction, dtype=float)# * np.array([4, 2.1, 1.8, 0.1, 0.1, 0.1, 0.1, 0.1])
-        #limiting decimal points to 8
+        pred = np.array(model_prediction, dtype=float)
         #0: W
         #1: WA
         #2: WD
@@ -48,7 +47,6 @@ def main():
         #7: D
         print(pred)
         choice = np.argmax(pred)
-        #print(pred[choice])
         if choice == 0:
             agent.steering_acc="forward"
             print('forward')
