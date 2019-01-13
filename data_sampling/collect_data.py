@@ -2,15 +2,17 @@ import numpy as np
 import cv2
 import sys
 import glob
+import time
 
 from optparse import OptionParser
 from hardw import get_keys
-from screen import screen_cap
+from PIL import ImageGrab
 
 def main():
 
     #where file is stored
-    path = 'D:/data_ai/'
+    #path = 'D:/data_ai/'
+    path = 'C:/Users/MrGrimod/Desktop/gta_self_driving_v2/data_d/'
 
     #(left, top, res, res)
     size=(0,40,800,600)
@@ -44,11 +46,18 @@ def main():
 
     paused = False
 
+    last_time = time.time()
     while True:
-        itr += 1
+
+        # 800x600 windowed mode
+        printscreen =  np.array(ImageGrab.grab(bbox=(0,40,800,640)))
+        print('loop took {} seconds'.format(time.time()-last_time))
+        last_time = time.time()
+        cv2.imshow('window',cv2.cvtColor(printscreen, cv2.COLOR_BGR2RGB))
+
+
         pressed_k = get_keys.get_pressed_keys()
-        img = screen_cap.grab_frame(size)
-        tr_data.append([img, pressed_k])
+        tr_data.append([printscreen, pressed_k])
         img = None
 
         if save_steps < len(tr_data):
@@ -57,7 +66,8 @@ def main():
             np.save(path+'data'+str(steps)+'.npy', tr_data)
             tr_data = []
 
-        if cv2.waitKey(1) & 0xFF == ord('q') or get_keys.get_stop_key('P'):
+        if cv2.waitKey(25) & 0xFF == ord('q'):
+            cv2.destroyAllWindows()
             break
 
     print('Saving data')
