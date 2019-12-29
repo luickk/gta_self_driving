@@ -1,14 +1,10 @@
 GTA self driving Agent
 ===================
 
-The goal is to program a self-propelled agent, that is capable of driving a car in gtaIV.
-The agent's driving skills are concentrated on motorways and long straight streets.
+The goal is to program a self-driving agent, that is capable of driving a car in gtaIV.
+Since the project aims on a approach which excludes every other data source except for the view of the driver the car is only ment to drive down a car way with no complex turning or overhaul maneuvers.
 
 ----------
-
-Demo
--------------
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/PacK5zFUrpc/0.jpg)](https://www.youtube.com/watch?v=PacK5zFUrpc)
 
 Realization
 -------------
@@ -74,3 +70,4 @@ Dependencies
 >  `Python36\Lib\site-packages\win32` <br>
 >  If you get this error: `ImportError: No module named win32gui`, after installing win32 and you are using 64 bit python install 64 bit win32 wheel from http://www.lfd.uci.edu/~gohlke/pythonlibs/#pywin32 by using `pip install <name>.whl`
 > - re
+
