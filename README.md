@@ -4,6 +4,8 @@ GTA self driving Agent
 The goal is to program a self-driving agent, that is capable of driving a car in gtaIV.
 Since the project aims on a approach which excludes every other data source except for the view of the driver the car is only ment to drive down a car way with no complex turning or overhaul maneuvers.
 
+Demonstration video can be watched [here](media/demo.mp4)
+
 ----------
 
 Realization
